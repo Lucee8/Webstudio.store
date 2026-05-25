@@ -241,6 +241,23 @@
   .card.featured .card-btn { background: var(--ink); color: white; border-color: var(--ink); }
   .card.featured .card-btn:hover { background: #2a2820; }
 
+ /* 4-column grid for packages */
+@media (min-width: 900px) {
+  .cards { grid-template-columns: repeat(4, 1fr); }
+}
+.tag-row {
+  display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 14px;
+}
+.stack-tag {
+  font-size: 10px; font-weight: 500; letter-spacing: .07em;
+  text-transform: uppercase; padding: 3px 9px;
+  border-radius: 100px; background: var(--cream); color: var(--muted);
+}
+.timeline-note {
+  font-size: 12px; color: var(--muted); margin-top: 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+ 
   /* PORTFOLIO */
   .portfolio {
     padding: 64px 24px;
@@ -623,96 +640,162 @@
     <span class="btype">And more...</span>
   </div>
 
+ <section class="packages">
+  <p class="section-label">Service Packages</p>
+  <h2 class="section-title">Pick the right plan for your business</h2>
+  <p class="section-sub">All packages include mobile-friendly design, WhatsApp button, and Google Maps.</p>
+
+  <div class="business-types">
+    <span class="btype">Restaurants & cafés</span>
+    <span class="btype">Resorts & hotels</span>
+    <span class="btype">Furniture stores</span>
+    <span class="btype">Salons & spas</span>
+    <span class="btype">Clinics & doctors</span>
+    <span class="btype">Shops & boutiques</span>
+    <span class="btype">Gyms & fitness</span>
+    <span class="btype">Event venues</span>
+    <span class="btype">And more...</span>
+  </div>
+
   <div class="cards">
-    <!-- BASIC -->
+
+    <!-- STARTER -->
     <div class="card">
       <div class="card-header">
         <div class="card-tier">Starter</div>
-        <div class="card-name">Basic Package</div>
+        <div class="card-name">Basic Presence</div>
         <div class="card-price">
           <span class="price-symbol">₹</span>
-          <span class="price-range">1,000 – 2,500</span>
+          <span class="price-range">5,000 – 8,000</span>
         </div>
-        <p class="price-note">One-time · Hosting included (1 yr)</p>
+        <p class="price-note">One-time · Hosting setup included</p>
       </div>
       <div class="card-body">
         <ul class="feature-list">
           <li><span class="check">✓</span> 3–4 page website</li>
-          <li><span class="check">✓</span> Home page with photos</li>
-          <li><span class="check">✓</span> Menu / Services page</li>
-          <li><span class="check">✓</span> Photo gallery</li>
-          <li><span class="check">✓</span> Contact page + Google Maps</li>
-          <li><span class="check">✓</span> Mobile-friendly design</li>
+          <li><span class="check">✓</span> Home, About, Products/Services, Contact</li>
+          <li><span class="check">✓</span> Static product / photo gallery</li>
+          <li><span class="check">✓</span> WhatsApp enquiry button</li>
+          <li><span class="check">✓</span> Google Maps embed</li>
+          <li><span class="check">✓</span> Mobile responsive</li>
         </ul>
+        <div class="tag-row">
+          <span class="stack-tag">HTML</span>
+          <span class="stack-tag">CSS</span>
+          <span class="stack-tag">Vanilla JS</span>
+        </div>
+        <p class="timeline-note">⏱ Ready in 3–5 days</p>
       </div>
       <div class="card-footer">
         <button class="card-btn" onclick="window.open('https://wa.me/918378991750','_blank')">Get Started</button>
       </div>
     </div>
 
-    <!-- STANDARD — FEATURED -->
-    <div class="card featured">
+    <!-- STANDARD -->
+    <div class="card">
       <div class="card-header">
-        <div class="card-tier">Best Value</div>
-        <div class="card-name">Standard Package</div>
+        <div class="card-tier">Standard</div>
+        <div class="card-name">Multi-Page Site</div>
         <div class="card-price">
           <span class="price-symbol">₹</span>
-          <span class="price-range">2,000 – 3,500</span>
+          <span class="price-range">10,000 – 16,000</span>
         </div>
         <p class="price-note">One-time · Domain + Hosting included (1 yr)</p>
       </div>
       <div class="card-body">
         <ul class="feature-list">
-          <li><span class="check">✓</span> Everything in Basic</li>
-          <li><span class="check">✓</span> 5–6 pages</li>
-          <li><span class="check">✓</span> Online enquiry / booking form</li>
-          <li><span class="check">✓</span> WhatsApp button</li>
-          <li><span class="check">✓</span> SEO optimisation (show on Google)</li>
+          <li><span class="check">✓</span> Everything in Starter</li>
+          <li><span class="check">✓</span> 5–6 pages with category sections</li>
+          <li><span class="check">✓</span> Product cards with image & price</li>
+          <li><span class="check">✓</span> Enquiry form → Google Sheets</li>
           <li><span class="check">✓</span> Google Business Profile setup</li>
-          <li><span class="check">✓</span> Fast loading speed</li>
-          <li><span class="check">✓</span> Social media links</li>
+          <li><span class="check">✓</span> Testimonials section</li>
+          <li><span class="check">✓</span> Basic SEO (meta, OG tags)</li>
           <li><span class="check">✓</span> 1 free revision after delivery</li>
-          <li><span class="check">✓</span> 1 month free support</li>
         </ul>
+        <div class="tag-row">
+          <span class="stack-tag">HTML / CSS / JS</span>
+          <span class="stack-tag">Google Sheets</span>
+        </div>
+        <p class="timeline-note">⏱ Ready in 7–10 days</p>
       </div>
       <div class="card-footer">
         <button class="card-btn" onclick="window.open('https://wa.me/918378991750','_blank')">Get Started</button>
       </div>
     </div>
 
-    <!-- PREMIUM -->
-    <div class="card">
+    <!-- PREMIUM — FEATURED -->
+    <div class="card featured">
       <div class="card-header">
-        <div class="card-tier">Premium</div>
-        <div class="card-name">Premium Package</div>
+        <div class="card-tier">Best Value</div>
+        <div class="card-name">Premium Site</div>
         <div class="card-price">
           <span class="price-symbol">₹</span>
-          <span class="price-range">4,000 – 6,000</span>
+          <span class="price-range">18,000 – 24,000</span>
         </div>
         <p class="price-note">One-time · Domain + Hosting included (1 yr)</p>
       </div>
       <div class="card-body">
         <ul class="feature-list">
           <li><span class="check">✓</span> Everything in Standard</li>
-          <li><span class="check">✓</span> Full business website</li>
-          <li><span class="check">✓</span> Products / services showcase</li>
-          <li><span class="check">✓</span> Full photo gallery with lightbox</li>
-          <li><span class="check">✓</span> WhatsApp booking / enquiry button</li>
-          <li><span class="check">✓</span> AI chatbot for support</li>
-          <li><span class="check">✓</span> Testimonials / reviews section</li>
-          <li><span class="check">✓</span> Advanced SEO setup</li>
+          <li><span class="check">✓</span> 6–8 pages with premium UI</li>
+          <li><span class="check">✓</span> Product filtering (category, price)</li>
+          <li><span class="check">✓</span> Smooth scroll + GSAP animations</li>
+          <li><span class="check">✓</span> Image lightbox + zoom gallery</li>
+          <li><span class="check">✓</span> AI chatbot for customer queries</li>
+          <li><span class="check">✓</span> Full SEO — Schema.org, sitemap</li>
           <li><span class="check">✓</span> 3 months free support</li>
-          <li><span class="check">✓</span> Monthly content updates</li>
-          <li><span class="check">✓</span> Priority delivery (2–3 days)</li>
+          <li><span class="check">✓</span> Priority delivery (5–7 days)</li>
         </ul>
+        <div class="tag-row">
+          <span class="stack-tag">HTML / CSS / JS</span>
+          <span class="stack-tag">GSAP</span>
+          <span class="stack-tag">Apps Script</span>
+        </div>
+        <p class="timeline-note">⏱ Ready in 14–18 days</p>
       </div>
       <div class="card-footer">
         <button class="card-btn" onclick="window.open('https://wa.me/918378991750','_blank')">Get Started</button>
       </div>
     </div>
+
+    <!-- E-COMMERCE -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-tier">E-Commerce</div>
+        <div class="card-name">Online Store</div>
+        <div class="card-price">
+          <span class="price-symbol">₹</span>
+          <span class="price-range">25,000 – 30,000</span>
+        </div>
+        <p class="price-note">One-time · Domain + Hosting included (1 yr)</p>
+      </div>
+      <div class="card-body">
+        <ul class="feature-list">
+          <li><span class="check">✓</span> Everything in Premium</li>
+          <li><span class="check">✓</span> Cart + wishlist functionality</li>
+          <li><span class="check">✓</span> Razorpay payment integration</li>
+          <li><span class="check">✓</span> Order confirmation + tracking</li>
+          <li><span class="check">✓</span> Google Sheets order dashboard</li>
+          <li><span class="check">✓</span> GST invoice generation</li>
+          <li><span class="check">✓</span> WhatsApp order notifications</li>
+          <li><span class="check">✓</span> 1 month free support</li>
+        </ul>
+        <div class="tag-row">
+          <span class="stack-tag">HTML / JS</span>
+          <span class="stack-tag">Razorpay</span>
+          <span class="stack-tag">Apps Script</span>
+        </div>
+        <p class="timeline-note">⏱ Ready in 25–30 days</p>
+      </div>
+      <div class="card-footer">
+        <button class="card-btn" onclick="window.open('https://wa.me/918378991750','_blank')">Get Started</button>
+      </div>
+    </div>
+
   </div>
 </section>
-
+ 
 <!-- PORTFOLIO / SAMPLES -->
 
 <section class="portfolio">
