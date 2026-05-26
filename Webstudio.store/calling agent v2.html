@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Calling Agent - Premium Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #020617;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px 2px rgba(59, 130, 246, 0.4); }
+            50% { box-shadow: 0 0 40px 10px rgba(59, 130, 246, 0.7); }
+        }
+        .ai-avatar-glow { animation: pulse-glow 3s infinite; }
+
+        .wave {
+            width: 4px;
+            border-radius: 999px;
+            background: #3b82f6;
+            animation: sound-wave 1s ease-in-out infinite alternate;
+        }
+        @keyframes sound-wave {
+            0% { height: 8px; opacity: 0.5; }
+            100% { height: 32px; opacity: 1; }
+        }
+        .wave:nth-child(1) { animation-delay: 0.0s; background: #60a5fa; }
+        .wave:nth-child(2) { animation-delay: 0.2s; background: #3b82f6; }
+        .wave:nth-child(3) { animation-delay: 0.4s; background: #2563eb; }
+        .wave:nth-child(4) { animation-delay: 0.1s; background: #3b82f6; }
+        .wave:nth-child(5) { animation-delay: 0.3s; background: #60a5fa; }
+
+        .waves-container.paused .wave {
+            animation-play-state: paused;
+            height: 4px !important;
+            transition: height 0.3s ease;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #60A5FA, #A78BFA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .theme-blue { --accent: #3B82F6; --accent-glow: rgba(59, 130, 246, 0.5); }
+        .theme-green { --accent: #10B981; --accent-glow: rgba(16, 185, 129, 0.5); }
+        .theme-purple { --accent: #8B5CF6; --accent-glow: rgba(139, 92, 246, 0.5); }
+        .theme-amber { --accent: #F59E0B; --accent-glow: rgba(245, 158, 11, 0.5); }
+        .theme-cyan { --accent: #06B6D4; --accent-glow: rgba(6, 182, 212, 0.5); }
+
+        .whatsapp-bubble {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border-left: 4px solid #25D366;
+        }
+        .topbar-badge{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 12px;border-radius:50px;border:1px solid rgba(37,211,102,0.3);
+}
+    </style>
+</head>
+<body class="min-h-screen bg-[#020617] p-4 lg:p-8 overflow-y-auto">
+
+    <div class="fixed inset-0 bg-grid z-0"></div>
+    
+    <button id="sound-btn" class="fixed top-4 right-4 sm:top-8 sm:right-8 z-50 w-12 h-12 rounded-full glass-panel flex items-center justify-center text-white hover:bg-white/10 transition-all border border-white/20 shadow-lg">
+        <i class="fa-solid fa-volume-high"></i>
+    </button>
+
+    <div id="start-overlay" class="fixed inset-0 z-[60] bg-[#020617]/95 backdrop-blur-xl flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="text-center mb-8 px-6">
+            <div class="w-20 h-20 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-6 ai-avatar-glow">
+                <i class="fa-solid fa-microphone-lines text-4xl text-blue-500 animate-pulse"></i>
+            </div>
+            <h2 class="text-4xl font-extrabold text-white mb-3">ReceptionistAI</h2>
+            <p class="text-slate-400 max-w-md mx-auto text-lg">Watch Myra AI handle a complex guest inquiry from start to finish.</p>
+        </div>
+        <button id="start-btn" class="bg-blue-600 hover:bg-blue-500 text-white px-10 py-4 rounded-full font-bold text-xl shadow-[0_0_40px_rgba(37,99,235,0.4)] transition-all transform hover:scale-105 flex items-center space-x-3">
+            <i class="fa-solid fa-play"></i>
+            <span>Start Live Demo</span>
+        </button>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto space-y-12 pb-20">
+        <header class="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 px-4">
+            <div>
+                <div class="inline-flex items-center space-x-5 bg-white-500/10 border border-blue-500/30 px-3 py-1 rounded-full text-white-400 text-xs font-bold uppercase tracking-widest mb-4">
+                    <a href="products.html" class="back-btn">← Back to Portfolio</a>
+                </div>
+                <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/30 px-3 py-1 rounded-full text-blue-400 text-xs font-bold uppercase tracking-widest mb-4">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Conversational AI</span>
+                </div>
+                <h1 class="text-5xl lg:text-6xl font-black text-white leading-tight">
+                    Smart Voice <span class="text-gradient">Receptionist.</span>
+                </h1>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full lg:w-auto">
+                <div class="glass-panel p-4 rounded-2xl text-center border-blue-500/20">
+                    <p class="text-2xl font-black text-white">&lt;1s</p>
+                    <p class="text-[10px] uppercase tracking-tighter text-slate-400 font-bold">Answer Time</p>
+                </div>
+                <div class="glass-panel p-4 rounded-2xl text-center border-purple-500/20">
+                    <p class="text-2xl font-black text-white">24/7</p>
+                    <p class="text-[10px] uppercase tracking-tighter text-slate-400 font-bold">Always On</p>
+                </div>
+                <div class="glass-panel p-4 rounded-2xl text-center border-cyan-500/20">
+                    <p class="text-2xl font-black text-white">🇮🇳</p>
+                    <p class="text-[10px] uppercase tracking-tighter text-slate-400 font-bold">Hinglish</p>
+                </div>
+                <div class="glass-panel p-4 rounded-2xl text-center border-green-500/20">
+                    <p class="text-2xl font-black text-white">0</p>
+                    <p class="text-[10px] uppercase tracking-tighter text-slate-400 font-bold">Missed Calls</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
+            <div class="lg:col-span-7 space-y-6">
+                <div class="glass-panel rounded-[40px] p-6 lg:p-12 relative overflow-hidden flex items-center justify-center min-h-[700px] shadow-2xl">
+                    
+                    <div id="whatsapp-notif" class="absolute top-10 right-6 lg:right-10 z-50 w-72 glass-panel p-4 rounded-2xl border-l-4 border-green-500 whatsapp-bubble transform translate-x-[120%] transition-transform duration-500">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <span class="text-xs font-bold text-green-400 uppercase tracking-tighter">Instant Report</span>
+                        </div>
+                        <div class="text-[11px] leading-relaxed text-slate-200" id="whatsapp-content">
+                            <p class="font-bold mb-1">🔔 New Call Summary</p>
+                            <p>Loading summary...</p>
+                        </div>
+                    </div>
+
+                    <div class="relative w-full max-w-[340px] glass-panel border-white/10 rounded-[50px] shadow-2xl p-3 z-10 theme-blue transition-all duration-1000" id="phone-ui">
+                        <div class="w-full h-full bg-[#0B1120] rounded-[42px] overflow-hidden relative flex flex-col pt-10 pb-8 px-6 border border-white/5">
+                            <div class="flex flex-col items-center mb-8">
+                                <div class="w-20 h-20 rounded-full bg-slate-800 flex items-center justify-center mb-3 relative ai-avatar-glow shadow-[0_0_20px_var(--accent-glow)]">
+                                    <i id="header-icon" class="fa-solid fa-robot text-3xl text-[var(--accent)] transition-colors duration-500"></i>
+                                    <div class="absolute bottom-1 right-1 w-6 h-6 bg-green-500 border-4 border-[#0B1120] rounded-full animate-pulse"></div>
+                                </div>
+                                <h3 class="text-white font-bold text-xl" id="call-title">AI Receptionist</h3>
+                                <p class="text-[var(--accent)] text-[10px] font-black tracking-widest uppercase mt-1" id="call-status">Connecting...</p>
+                            </div>
+
+                            <div class="flex-1 overflow-hidden relative w-full space-y-4 flex flex-col justify-end pb-4">
+                                <div class="self-end max-w-[85%] hidden" id="guest-bubble">
+                                    <div class="bg-slate-800 text-white p-3 rounded-2xl rounded-tr-sm text-xs border border-slate-700 shadow-sm">
+                                        <span id="guest-text">...</span>
+                                    </div>
+                                    <div class="text-[9px] text-slate-500 text-right mt-1 font-bold">GUEST</div>
+                                </div>
+                                <div class="self-start max-w-[90%]" id="ai-bubble">
+                                    <div class="bg-[var(--accent)]/10 text-white p-4 rounded-2xl rounded-tl-sm text-xs border border-[var(--accent)]/30 shadow-[0_4px_15px_var(--accent-glow)] relative backdrop-blur-md">
+                                        <span id="ai-text">Myra is ready...</span>
+                                    </div>
+                                    <div class="text-[9px] text-slate-500 text-left mt-1 font-bold flex items-center space-x-1 uppercase">
+                                        <i class="fa-solid fa-bolt text-yellow-500"></i>
+                                        <span>ReceptionistAI Live</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 flex items-center justify-center">
+                                <div class="h-12 flex items-center space-x-1.5 waves-container paused" id="waves">
+                                    <div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-10 flex items-center space-x-2 bg-black/40 px-5 py-2 rounded-full border border-white/10 backdrop-blur-sm" id="progress-dots"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 space-y-6">
+                <div class="glass-panel rounded-[40px] p-8 lg:p-10">
+                    <h3 class="text-2xl font-black text-white mb-8 flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-sm">
+                            <i class="fa-solid fa-list-check text-white"></i>
+                        </span>
+                        <span>Multi-Step Workflow</span>
+                    </h3>
+                    <div class="space-y-6" id="steps-list">
+                        <div class="flex items-center space-x-4 opacity-40 transition-opacity duration-500" id="step-ui-0">
+                            <div class="w-8 h-8 rounded-full border border-blue-500/50 flex items-center justify-center text-xs font-bold text-blue-400">1</div>
+                            <span class="text-sm text-slate-300">Greeting & Language Detection</span>
+                        </div>
+                        <div class="flex items-center space-x-4 opacity-40 transition-opacity duration-500" id="step-ui-1">
+                            <div class="w-8 h-8 rounded-full border border-blue-500/50 flex items-center justify-center text-xs font-bold text-blue-400">2</div>
+                            <span class="text-sm text-slate-300">Live Availability Check (Sheets)</span>
+                        </div>
+                        <div class="flex items-center space-x-4 opacity-40 transition-opacity duration-500" id="step-ui-2">
+                            <div class="w-8 h-8 rounded-full border border-blue-500/50 flex items-center justify-center text-xs font-bold text-blue-400">3</div>
+                            <span class="text-sm text-slate-300">Handling Amenity Inquiries</span>
+                        </div>
+                        <div class="flex items-center space-x-4 opacity-40 transition-opacity duration-500" id="step-ui-3">
+                            <div class="w-8 h-8 rounded-full border border-blue-500/50 flex items-center justify-center text-xs font-bold text-blue-400">4</div>
+                            <span class="text-sm text-slate-300">Data Collection & Lead Gen</span>
+                        </div>
+                        <div class="flex items-center space-x-4 opacity-40 transition-opacity duration-500" id="step-ui-4">
+                            <div class="w-8 h-8 rounded-full border border-blue-500/50 flex items-center justify-center text-xs font-bold text-blue-400">5</div>
+                            <span class="text-sm text-slate-300">WhatsApp Owner Report</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-[40px] p-8 overflow-hidden relative">
+                    <h4 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-6">Demo Status</h4>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl border border-white/5">
+                            <span class="text-xs text-slate-400">System Latency</span>
+                            <span class="text-xs font-bold text-green-400">480ms</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl border border-white/5">
+                            <span class="text-xs text-slate-400">Voice Quality</span>
+                            <span class="text-xs font-bold text-blue-400">HD Neutral</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl border border-white/5">
+                            <span class="text-xs text-slate-400">Google Sheets Sync</span>
+                            <span class="text-xs font-bold text-amber-400">Connected</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sequence = [
+            {
+                stepId: 0,
+                title: "Inbound Call",
+                status: "Detecting Language",
+                guest: "Hello, do you have any rooms available for this coming weekend?",
+                ai: "Welcome to Serenity Resort! Let me check that for you... Which dates specifically were you looking for?",
+                theme: "theme-blue"
+            },
+            {
+                stepId: 1,
+                title: "Availability Check",
+                status: "Querying Google Sheets",
+                guest: "I'm looking for April 28th and 29th. For 2 adults.",
+                ai: "Checking our live booking sheet... Yes! We have a Luxury Cottage available. The total for 2 nights is ₹12,000 including breakfast.",
+                theme: "theme-cyan"
+            },
+            {
+                stepId: 2,
+                title: "Amenity Inquiry",
+                status: "Knowledge Base Search",
+                guest: "Is the swimming pool open? And kya humein dinner room mein mil sakta hai?",
+                ai: "Yes, the pool is open from 7 AM to 8 PM. Aur bilkul, room service available hai dinner ke liye 10:30 PM tak.",
+                theme: "theme-amber"
+            },
+            {
+                stepId: 3,
+                title: "Lead Collection",
+                status: "Capturing Guest Data",
+                guest: "Great! Can you block it for me? My name is Vikram.",
+                ai: "Certainly, Vikram. I've noted your interest. Shall I send you the payment link and location on your WhatsApp number?",
+                theme: "theme-purple"
+            },
+            {
+                stepId: 4,
+                title: "Success",
+                status: "Pushing Notification",
+                guest: "Yes, please do that. Thank you!",
+                ai: "Perfect. I've updated the owner. You will receive a WhatsApp message from us in exactly one minute. Have a great day!",
+                theme: "theme-green",
+                notif: {
+                    caller: "Vikram · +91 98XXX XXXXX",
+                    dates: "28-29 April",
+                    intent: "High - Booked"
+                }
+            }
+        ];
+
+        let currentIndex = 0;
+        let soundEnabled = true;
+        const synth = window.speechSynthesis;
+        let voices = [];
+        let aiVoice, guestVoice;
+
+        function loadVoices() {
+            voices = synth.getVoices();
+            aiVoice = voices.find(v => v.name.includes('Female') || v.lang === 'en-GB') || voices[0];
+            guestVoice = voices.find(v => v.name.includes('Male') || v.lang === 'en-US') || voices[1];
+        }
+        if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = loadVoices;
+
+        const phoneUI = document.getElementById('phone-ui');
+        const callTitle = document.getElementById('call-title');
+        const callStatus = document.getElementById('call-status');
+        const aiText = document.getElementById('ai-text');
+        const guestBubble = document.getElementById('guest-bubble');
+        const guestText = document.getElementById('guest-text');
+        const waves = document.getElementById('waves');
+        const progressDots = document.getElementById('progress-dots');
+        const whatsappNotif = document.getElementById('whatsapp-notif');
+        const whatsappContent = document.getElementById('whatsapp-content');
+
+        function initProgress() {
+            sequence.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-blue-500 w-6' : 'bg-white/20'}`;
+                dot.id = `dot-${i}`;
+                progressDots.appendChild(dot);
+            });
+        }
+
+        function speak(text, isAi) {
+            return new Promise(resolve => {
+                if (!soundEnabled) {
+                    setTimeout(resolve, text.length * 40);
+                    return;
+                }
+                synth.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                
+                if (text.includes('kya humein') || text.includes('bilkul')) {
+                    const hiVoice = voices.find(v => v.lang.includes('hi'));
+                    utterance.voice = hiVoice || (isAi ? aiVoice : guestVoice);
+                } else {
+                    utterance.voice = isAi ? aiVoice : guestVoice;
+                }
+                
+                utterance.rate = 0.95;
+                utterance.pitch = isAi ? 1.05 : 0.95;
+                utterance.onend = resolve;
+                utterance.onerror = resolve;
+                synth.speak(utterance);
+            });
+        }
+
+        async function typeText(text, element) {
+            element.innerHTML = '';
+            for (let char of text) {
+                element.innerHTML += char;
+                await new Promise(r => setTimeout(r, 20));
+            }
+        }
+
+        async function runStep(index) {
+            const step = sequence[index];
+            
+            phoneUI.className = `relative w-full max-w-[340px] glass-panel border-white/10 rounded-[50px] shadow-2xl p-3 z-10 transition-all duration-700 ${step.theme}`;
+            callTitle.textContent = step.title;
+            callStatus.textContent = step.status;
+            
+            sequence.forEach((_, i) => {
+                const dot = document.getElementById(`dot-${i}`);
+                dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === index ? 'bg-blue-500 w-6' : 'bg-white/20'}`;
+                
+                const stepUI = document.getElementById(`step-ui-${i}`);
+                if (i <= index) stepUI.classList.replace('opacity-40', 'opacity-100');
+                else stepUI.classList.replace('opacity-100', 'opacity-40');
+            });
+
+            if (step.notif) {
+                whatsappContent.innerHTML = `
+                    <p class="font-bold mb-1">🔔 New Call Summary</p>
+                    <p>Caller: ${step.notif.caller}</p>
+                    <p>Dates: ${step.notif.dates}</p>
+                    <p>Intent: <span class="text-green-400 font-bold">${step.notif.intent}</span></p>
+                `;
+                whatsappNotif.classList.remove('translate-x-[120%]');
+            } else {
+                whatsappNotif.classList.add('translate-x-[120%]');
+            }
+
+            if (step.guest) {
+                guestBubble.classList.remove('hidden');
+                guestText.textContent = step.guest;
+                await speak(step.guest, false);
+                await new Promise(r => setTimeout(r, 600));
+            }
+
+            waves.classList.remove('paused');
+            let speakP = speak(step.ai, true);
+            await typeText(step.ai, aiText);
+            await speakP;
+            waves.classList.add('paused');
+        }
+
+        async function start() {
+            while(true) {
+                await runStep(currentIndex);
+                await new Promise(r => setTimeout(r, 3000));
+                currentIndex = (currentIndex + 1) % sequence.length;
+                if (currentIndex === 0) {
+                    // Reset steps UI on loop
+                    sequence.forEach((_, i) => {
+                        document.getElementById(`step-ui-${i}`).classList.replace('opacity-100', 'opacity-40');
+                    });
+                }
+            }
+        }
+
+        window.onload = () => {
+            initProgress();
+            loadVoices();
+            const startOverlay = document.getElementById('start-overlay');
+            const startBtn = document.getElementById('start-btn');
+            const soundBtn = document.getElementById('sound-btn');
+
+            startBtn.onclick = () => {
+                startOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    startOverlay.style.display = 'none';
+                    start();
+                }, 500);
+            };
+
+            soundBtn.onclick = () => {
+                soundEnabled = !soundEnabled;
+                const icon = soundBtn.querySelector('i');
+                if (soundEnabled) {
+                    icon.className = 'fa-solid fa-volume-high';
+                    soundBtn.classList.remove('bg-red-500/20');
+                } else {
+                    icon.className = 'fa-solid fa-volume-xmark';
+                    soundBtn.classList.add('bg-red-500/20');
+                    synth.cancel();
+                }
+            };
+        };
+    </script>
+</body>
+</html>
